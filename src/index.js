@@ -11,8 +11,9 @@ app.get("/cep/:cep", async (req, res) => {
         const address = response.data;
 
         if (address.erro) {
+            const status = 404;
             const message = "CEP não encontado!";
-            return res.status(404).json({ message });
+            return res.status(404).json({ message, status });
         }
 
         const result = {
@@ -22,7 +23,9 @@ app.get("/cep/:cep", async (req, res) => {
             state: address.uf
         };
 
-        res.json({ result });
+        const status = 200;
+
+        res.json({ result, status });
     } catch(err) {
         const message = "Erro ao constar cep";
         res.status(500).json({message});
